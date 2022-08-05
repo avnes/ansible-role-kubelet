@@ -1,39 +1,31 @@
 ---
 - name: Find latest stable version
-  uri:
+  ansible.builtin.uri:
     url: https://dl.k8s.io/release/stable.txt
     return_content: yes
   register: stable_version
   when: kubelet_version == "latest"
 
 - name: Set version to download when latest stable version
-  set_fact:
+  ansible.builtin.set_fact:
     kubelet_download_version: "{{ stable_version.content }}"
   when: kubelet_version == "latest"
 
 - name: Set version to download if using custom version
-  set_fact:
+  ansible.builtin.set_fact:
     kubelet_download_version: "{{ kubelet_version }}"
   when: kubelet_version != "latest"
 
 - name: Set version to download if using custom version and missing v prefix
-  set_fact:
+  ansible.builtin.set_fact:
     kubelet_download_version: "v{{ kubelet_version }}"
   when:
     - kubelet_version != "latest"
     - "'v' not in kubelet_version"
 
-- name: Set download URL
-  set_fact:
-    kubelet_download_url: "https://dl.k8s.io/release/{{ kubelet_download_version }}/bin/linux/amd64/kubelet"
-
-- name: Set download directory for all users to use
-  set_fact:
-    kubelet_download_dir: "/usr/local/bin"
-
 - name: Download kubelet
-  uri:
-    url: "{{ kubelet_download_url }}"
+  ansible.builtin.uri:
+    url: "https://dl.k8s.io/release/{{ kubelet_download_version }}/bin/linux/amd64/kubelet"
     dest: "{{ kubelet_download_dir }}/kubelet"
     follow_redirects: all
     status_code: [200, 304]

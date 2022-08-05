@@ -1,2 +1,3 @@
 ---
 kubelet_version: latest
+kubelet_download_dir: "/usr/local/bin"
