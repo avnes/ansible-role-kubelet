@@ -1,5 +1,2 @@
 ---
 kubelet_version: latest
-kubelet_for_all_users: true
-
-command_shell: bash
