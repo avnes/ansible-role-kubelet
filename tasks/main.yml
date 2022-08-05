@@ -1,32 +1,17 @@
 ---
-- name: Find latest stable version
-  ansible.builtin.uri:
-    url: https://dl.k8s.io/release/stable.txt
-    return_content: yes
-  register: stable_version
-  when: kubelet_version == "latest"
+- name: Add kubernetes repo
+  ansible.builtin.yum_repository:
+    name: Kubernetes
+    description: Kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
+    file: kubernetes.repo
+    gpgkey:
+      - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+      - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgcheck: yes
 
-- name: Set version to download when latest stable version
-  ansible.builtin.set_fact:
-    kubelet_download_version: "{{ stable_version.content }}"
-  when: kubelet_version == "latest"
-
-- name: Set version to download if using custom version
-  ansible.builtin.set_fact:
-    kubelet_download_version: "{{ kubelet_version }}"
-  when: kubelet_version != "latest"
-
-- name: Set version to download if using custom version and missing v prefix
-  ansible.builtin.set_fact:
-    kubelet_download_version: "v{{ kubelet_version }}"
-  when:
-    - kubelet_version != "latest"
-    - "'v' not in kubelet_version"
-
-- name: Download kubelet
-  ansible.builtin.uri:
-    url: "https://dl.k8s.io/release/{{ kubelet_download_version }}/bin/linux/amd64/kubelet"
-    dest: "{{ kubelet_download_dir }}/kubelet"
-    follow_redirects: all
-    status_code: [200, 304]
-    mode: 0755
+- name: Install kubelet
+  ansible.builtin.dnf:
+    name:
+      - kubelet
+    state: present

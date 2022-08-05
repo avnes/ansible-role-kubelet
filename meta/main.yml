@@ -12,20 +12,11 @@ galaxy_info:
   - name: Fedora
     versions:
     - 34
-    - 34
-  - name: Ubuntu
-    versions:
-    - bionic
-    - cosmic
-    - disco
-    - eoan
-    - focal
-    - groovy
-    - hirsute
-    - impish
+    - 35
   - name: EL
     versions:
     - 8
+    - 9
 
   galaxy_tags:
   - kubernetes
