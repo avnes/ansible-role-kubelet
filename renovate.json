@@ -18,7 +18,7 @@
         "stabilityDays": 0,
         "automerge": true,
         "matchCurrentVersion": "!/^0/",
-        "ignoreTests": true,
+        "ignoreTests": true
     },{
         "matchUpdateTypes": [
             "major"
