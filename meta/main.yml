@@ -2,26 +2,21 @@ galaxy_info:
   role_name: kubelet
   author: avnes
   description: Will install kubelet
-  company:
-
   license: license (MIT)
-
-  min_ansible_version: 2.11
+  min_ansible_version: "2.11"
 
   platforms:
-  - name: Fedora
-    versions:
-    - 34
-    - 35
-  - name: EL
-    versions:
-    - 8
-    - 9
+    - name: Fedora
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
 
   galaxy_tags:
-  - kubernetes
-  - k8s
-  - cli
-  - kubelet
+    - kubernetes
+    - k8s
+    - cli
+    - kubelet
 
 dependencies: []
