@@ -3,11 +3,10 @@
   ansible.builtin.yum_repository:
     name: Kubernetes
     description: Kubernetes
-    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
+    baseurl: https://pkgs.k8s.io/core:/stable:/v1.29/rpm/
     file: kubernetes.repo
     gpgkey:
-      - https://packages.cloud.google.com/yum/doc/yum-key.gpg
-      - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+      - https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
     gpgcheck: yes
 
 - name: Install kubelet
